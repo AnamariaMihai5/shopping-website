@@ -1,3 +1,5 @@
+let sections = document.querySelectorAll(".shop");
+let sectionLinks = document.querySelectorAll(".go-to-section");
 let canvas = document.getElementById("offcanvasNavbar");
 let cart = document.querySelector("#cart");
 let openCart = document.querySelector("#open-cart");
@@ -6,6 +8,7 @@ let addCart = document.querySelectorAll(".add-cart");
 let cartContent = document.querySelector(".cart-content");
 let totalPrice = document.querySelector(".total-price");
 let BuyBtn = document.querySelector(".btn-buy");
+let notification = document.querySelector("#notification");
 
 let cartBoxes, removeCartBtns, priceInputs, quantityInputs;
 
@@ -14,24 +17,47 @@ let total;
 let cartItemsNames;
 
 
-openCart.addEventListener("click", () => {
-    cart.classList.add("active");
-    canvas.classList.remove("show");   
-})
+// Open cart by clicking on link
+openCart.addEventListener("click", openCartFunction);
 
-closeCart.addEventListener("click", () => {
-    cart.classList.remove("active");
-    canvas.classList.add("show");   
-})
+// Close cart from the x button
+closeCart.addEventListener("click", closeCartFunction);
 
+// Close cart by clicking outside the cart
+sections.forEach(el => {
+    el.addEventListener("click", hideCartAndCanvas);
+});
+
+// Go to sections in tablet/phone mode
+sectionLinks.forEach(el => {
+    el.addEventListener("click", hideCartAndCanvas);
+});
+
+// Add items to cart
 addCart.forEach(element => {
     element.addEventListener("click", addItemToCart);
 });
 
-
+// Update price and notification
 cart.addEventListener("mouseup", updatePrice);
+cart.addEventListener("mouseup", updateNotification);
 
+// Buy products
 BuyBtn.addEventListener("click", buyItems);
+
+
+function openCartFunction() {
+    cart.classList.add("active");
+    canvas.classList.remove("show");
+}
+function closeCartFunction() {
+    canvas.classList.add("show");
+    cart.classList.remove("active");
+}
+function hideCartAndCanvas() {
+    canvas.classList.remove("show");
+    cart.classList.remove("active");
+}
 
 
 function addItemToCart(event) {
@@ -78,6 +104,8 @@ function addItemToCart(event) {
     });
 
     updatePrice();
+    addNotification();
+    updateNotification();
 }
 
 
@@ -85,14 +113,17 @@ function removeItemFromCart(event) {
     let btn = event.target;
     btn.parentElement.remove();
     // update price
-    let deletedProdPrice = parseInt(((btn.parentElement.querySelector(".cart-price")).innerText).slice(1));
-    total -= deletedProdPrice;
-    totalPrice.innerHTML = `$${total}`;
+    updatePrice();
     // update cart
     cartItemsNames = Object.values(cartItemsNames);
     let deletedProdName = btn.parentElement.querySelector(".cart-product-title").innerText;
     let deletedProdIndex = cartItemsNames.indexOf(deletedProdName);
-    cartItemsNames.splice(deletedProdIndex, 1)
+    cartItemsNames.splice(deletedProdIndex, 1);
+    // update notification
+    if (cartItemsNames.length === 0) {
+        removeNotification();
+    }
+    updateNotification();
 }
 
 
@@ -120,8 +151,31 @@ function buyItems() {
         cartContent.innerHTML = null;
         total = 0;
     }
-    
-    updatePrice();
+
     cart.classList.remove("active");
-    canvas.classList.remove("show"); 
+    canvas.classList.remove("show");
+
+    updatePrice();
+    removeNotification();
+}
+
+
+function addNotification() {
+    notification.classList.add("active");
+}
+
+function removeNotification() {
+    notification.classList.remove("active");
+    notification.innerHTML = null;
+}
+
+function updateNotification() {
+    let products = [];
+    cartBoxes.forEach(element => {
+        let qty = element.querySelector(".cart-quantity").value;
+        products.push(qty);
+    })
+    if (products.length > 0) {
+        notification.innerText = products.reduce((a, b) => parseInt(a) + parseInt(b));
+    }
 }
