@@ -23,3 +23,6 @@ https://github.com/AnamariaMihai5/shopping-website/assets/128514771/4afe798b-061
 
 # Live Website:
 
+https://anamariamihai5.github.io/shopping-website/
+
+
