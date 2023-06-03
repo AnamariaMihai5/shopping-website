@@ -9,14 +9,17 @@ removing certain items, updating the price and resetting the cart, price and qua
 The design is responsive, adapting well to all screens.
 
 
-https://github.com/AnamariaMihai5/shopping-website/assets/128514771/a2f54ef0-58a9-47e2-aef9-703733925962
+https://github.com/AnamariaMihai5/shopping-website/assets/128514771/e5ee5ce6-9688-4652-91d2-1f7872aa5397
 
 
 # Demo:
 
 
-https://github.com/AnamariaMihai5/shopping-website/assets/128514771/7504da66-425b-47e9-974c-eb7eb4e04c2d
+
+https://github.com/AnamariaMihai5/shopping-website/assets/128514771/4afe798b-0616-4fdb-b935-79932385d483
+
+
 
 
 # Live Website:
-[https://anamariamihai5.github.io/shopping-website/#cart ](https://anamariamihai5.github.io/shopping-website/#cart)
+
