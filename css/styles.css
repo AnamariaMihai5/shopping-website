@@ -58,7 +58,8 @@ section {
     float: right;
     background-color: var(--text-color);
     color: var(--bg-color);
-    padding: 10px;
+    border: none;
+    padding: 5px 10px 3px 10px;
     cursor: pointer;
     max-width: fit-content;
 }
@@ -91,7 +92,6 @@ footer {
     min-height: 100%;
     width: 350px;
     padding: 10px;
-    box-shadow: -0.2px 0 0px var(--text-color);
     transition: 0.3s;
     overflow-y: scroll;
     color: var(--text-color);
@@ -100,6 +100,7 @@ footer {
 /* shows cart */
 #cart.active {
     right: 0;
+    box-shadow: 0 0 0 999em rgba(0, 0, 0, 0.662);
 }
 
 #cart::-webkit-scrollbar {
@@ -126,20 +127,25 @@ footer {
 
 .detail-box {
     display: grid;
-    row-gap: 1rem;
+    row-gap: 0.5rem;
     text-align: left;
     font-size: 1rem;
     text-transform: uppercase;
 }
 
-.cart-quantity {
-    box-shadow: inset 1px 1px 2px var(--text-color);
-    border: none;
-    outline-color: var(--main-color);
-    width: 2.4rem;
-    text-align: center;
-    font-size: 1rem;
-    color: var(--text-color);
+.quantity {
+    display: flex;
+    align-items: flex-end;
+}
+
+.quantity p {
+    padding: 0 3px;
+    margin: 0;
+}
+
+.quantity .minus-item, .plus-item {
+    margin-bottom: 3px;
+    cursor: pointer;
 }
 
 .cart-remove {
